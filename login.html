@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding-top: 40px;
+        }
+        .form-container {
+            width: 300px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"], .toggle-password-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="loginFormContainer">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="return validateLogin()">
+            <input type="text" id="loginUsername" name="loginUsername" placeholder="Username" required>
+            <div style="position: relative;">
+                <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" required>
+                <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('loginPassword')">Show Password</button>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a></p>
+    </div>
+
+    <div class="form-container" id="registerFormContainer" style="display: none;">
+        <h2>Register</h2>
+        <form id="registerForm" onsubmit="return validateRegistration()">
+            <input type="text" id="registerUsername" name="registerUsername" placeholder="Username" required>
+            <input type="password" id="registerPassword" name="registerPassword" placeholder="Password" required>
+            <input type="submit" value="Register">
+        </form>
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
+    </div>
+
+    <script>
+        function validateLogin() {
+            var username = document.getElementById('loginUsername').value;
+            var password = document.getElementById('loginPassword').value;
+
+            // Add your login validation logic here (e.g., checking credentials against a database)
+            // For demonstration, let's assume a simple validation
+            if (username === "admin" && password === "password") {
+                alert("Login successful!");
+                return true; // Proceed with form submission
+            } else {
+                alert("Invalid username or password. Please try again.");
+                return false; // Prevent form submission
+            }
+        }
+
+        function validateRegistration() {
+            var registerUsername = document.getElementById('registerUsername').value;
+            var registerPassword = document.getElementById('registerPassword').value;
+
+            // Add your registration logic here (e.g., saving credentials to a database)
+            // For demonstration, let's simply alert the registered username and password
+            alert("Registration successful!\nUsername: " + registerUsername + "\nPassword: " + registerPassword);
+            return true; // Proceed with form submission
+        }
+
+        function togglePasswordVisibility(inputId) {
+            var passwordInput = document.getElementById(inputId);
+            var toggleBtn = passwordInput.nextElementSibling;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleBtn.textContent = "Hide Password";
+            } else {
+                passwordInput.type = "password";
+                toggleBtn.textContent = "Show Password";
+            }
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginFormContainer').style.display = 'none';
+            document.getElementById('registerFormContainer').style.display = 'block';
+        }
+
+        function showLoginForm() {
+            document.getElementById('registerFormContainer').style.display = 'none';
+            document.getElementById('loginFormContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
